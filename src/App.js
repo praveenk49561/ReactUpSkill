@@ -1,25 +1,45 @@
-import logo from './logo.svg';
 import './App.css';
+import { Component } from 'react';
+import List from './Container/List';
+import SearchBox from './Components/SearchBox';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+export class App extends Component {
+  constructor() {
+    console.log('Constructer');
+    super();
+
+    this.state = {
+      userList: [],
+      searchQuery: ''
+    }
+  }
+
+
+  componentDidMount () {
+    console.log('componentDidMount');
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then((res) => res.json())
+    .then((res) => this.setState({
+      userList: res
+    }));
+  }
+
+  searchHandler = (event) => {
+    this.setState({
+      searchQuery: event?.target?.value,
+    })
+  }
+
+  render() {
+    console.log('Render');
+    const { userList, searchQuery } = this?.state;
+
+    return <div>
+      <SearchBox placeholder='search a text' onChange={this.searchHandler} />
+      <List userList={userList} searchQuery={searchQuery} />
     </div>
-  );
+  }
 }
 
 export default App;
