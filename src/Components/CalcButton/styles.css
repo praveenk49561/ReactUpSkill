@@ -1,0 +1,21 @@
+.default-calc-button-container {
+    background-color: grey;
+    color: white;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.default-calc-button-container:hover {
+    background-color: rgb(160, 160, 160);
+    color: orange;
+}
+
+.default-calc-button-text {
+    position: absolute;
+}

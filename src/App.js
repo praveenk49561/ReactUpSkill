@@ -2,6 +2,7 @@ import './App.css';
 import { Component } from 'react';
 import List from './Container/List';
 import SearchBox from './Components/SearchBox';
+import Calculator from './Container/Calculator';
 
 
 export class App extends Component {
@@ -38,6 +39,7 @@ export class App extends Component {
     return <div>
       <SearchBox placeholder='search a text' onChange={this.searchHandler} />
       <List userList={userList} searchQuery={searchQuery} />
+      <Calculator />
     </div>
   }
 }
