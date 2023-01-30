@@ -1,45 +1,37 @@
-import './App.css';
 import { Component } from 'react';
-import List from './Container/List';
-import SearchBox from './Components/SearchBox';
-import Calculator from './Container/Calculator';
+import FormF from './Container/FormF';
+import FormC from './Container/FormC';
+import Nav from './Components/Nav';
+import './App.css';
 
-
-export class App extends Component {
-  constructor() {
-    console.log('Constructer');
-    super();
-
+class App extends Component {
+  constructor (props) {
+    super(props);
     this.state = {
-      userList: [],
-      searchQuery: ''
+      isFormFActive: true,
     }
-  }
+  };
 
-
-  componentDidMount () {
-    console.log('componentDidMount');
-    fetch('https://jsonplaceholder.typicode.com/users')
-    .then((res) => res.json())
-    .then((res) => this.setState({
-      userList: res
-    }));
-  }
-
-  searchHandler = (event) => {
+  onSwitchToggle (value) {
     this.setState({
-      searchQuery: event?.target?.value,
+      isFormFActive: value
     })
-  }
+  };
+
+  onSwitchToggle = this.onSwitchToggle.bind(this);
 
   render() {
-    console.log('Render');
-    const { userList, searchQuery } = this?.state;
+    const { state, onSwitchToggle } = this;
+    const { isFormFActive } = state;
 
     return <div>
-      <SearchBox placeholder='search a text' onChange={this.searchHandler} />
-      <List userList={userList} searchQuery={searchQuery} />
-      <Calculator />
+      <Nav 
+        header={`${isFormFActive ? 'Functional' : 'Class'} Based Component`} 
+        toggleValue={['F', 'C']} 
+        isToggled={isFormFActive} 
+        onSwitchToggle={onSwitchToggle}
+      />
+      {isFormFActive ? <FormF /> : <FormC />}
     </div>
   }
 }
